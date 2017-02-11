@@ -27,6 +27,7 @@ import com.example.babarmustafa.chatapplication.Signup_Adapter;
 import com.example.babarmustafa.chatapplication.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,11 +64,13 @@ public class GroupCreate extends AppCompatActivity {
     View view1;
     public HashMap<String, String> hashObj = new HashMap<>();
     String g_by_default;
+    FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_create);
         databse = FirebaseDatabase.getInstance().getReference();
+        mauth = FirebaseAuth.getInstance();
 
         mStoarge = FirebaseStorage.getInstance().getReference();
         group_image = (ImageView)findViewById(R.id.group_image);
@@ -179,6 +182,12 @@ public class GroupCreate extends AppCompatActivity {
                         databse
                                 .child("Groups_info")
                                 .child(to_get_g_name)
+                                .setValue(hashObj);
+                        String current_login = mauth.getCurrentUser().getUid();
+                        databse
+                                .child("My_Groups")
+                                .child(current_login)
+                                .child(group_Name.getText().toString())
                                 .setValue(hashObj);
 
                     }
