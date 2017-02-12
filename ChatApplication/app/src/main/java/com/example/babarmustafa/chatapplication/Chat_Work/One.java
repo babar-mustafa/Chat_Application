@@ -87,7 +87,7 @@ mauth =FirebaseAuth.getInstance();
         FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child("Groups_info")
+                .child("My_Groups")
                 .child(c_login)
                 .addChildEventListener(new ChildEventListener() {
 
