@@ -28,9 +28,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.babarmustafa.chatapplication.MainActivity;
 import com.example.babarmustafa.chatapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -81,6 +86,7 @@ public class Chat_Main_View extends AppCompatActivity implements NavigationView.
     private  TextView show_name;
     private static String photoUrl = null;
     public static String photoUrlForUserImage = null;
+    ProgressBar progressBar;
 
 //    CircularImageView circularImageView;
 
@@ -119,7 +125,26 @@ public class Chat_Main_View extends AppCompatActivity implements NavigationView.
 
                 if(!TextUtils.isEmpty(photoUrl)) {
 
-                    Picasso.with(Chat_Main_View.this).load(photoUrl).into(iv);
+//                    Picasso.with(Chat_Main_View.this).load(photoUrl).into(iv);
+                    Glide.with(Chat_Main_View.this)
+                            .load(photoUrl)
+                            .error(R.drawable.user1)
+                            .listener(new RequestListener<String, GlideDrawable>() {
+                                @Override
+                                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+//                        pcircularImageView.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/chatapplication-f99c2.appspot.com/o/grou_ico.png?alt=media&token=b664fb78-2b74-49b5-8297-6bc0e9e3c6c9"));
+
+                                }
+
+                                @Override
+                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            })
+                            .into(iv);
                 }
                  if (!TextUtils.isEmpty(name)){
                     show_name.setText(name);
@@ -223,10 +248,7 @@ public class Chat_Main_View extends AppCompatActivity implements NavigationView.
 
         View hView =  navigationView.getHeaderView(0);
         show_name = (TextView) hView.findViewById(R.id.username_view);
-
-
-
-
+        progressBar = (ProgressBar) hView.findViewById(R.id.progress_us);
 
 
         profile = (Button) hView.findViewById(R.id.im);

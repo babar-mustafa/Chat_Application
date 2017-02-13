@@ -32,6 +32,7 @@ import com.example.babarmustafa.chatapplication.Signup_Adapter;
 import com.example.babarmustafa.chatapplication.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,7 +63,7 @@ public class One extends Fragment {
     String admin_name;
     String group_image_url;
     private FloatingActionButton fabButton;
-
+FirebaseAuth mauth;
     public One() {
         // Required empty public constructor
     }
@@ -74,14 +75,21 @@ public class One extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         list = new ArrayList<>();
-
+mauth =FirebaseAuth.getInstance();
         fabButton = (FloatingActionButton) view.findViewById(R.id.fab);
         emailList = (ListView) view.findViewById(R.id.g_list_view);
         messages = new ArrayList<>();
         listAdapter = new Groups_show_Adapter(messages, getActivity());
         emailList.setAdapter(listAdapter);
 
-        FirebaseDatabase.getInstance().getReference().child("Groups_info").addChildEventListener(new ChildEventListener() {
+        String c_login = mauth.getCurrentUser().getUid();
+        //to show user only his groups
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("My_Groups")
+                .child(c_login)
+                .addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
