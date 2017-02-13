@@ -1,6 +1,7 @@
 package com.example.babarmustafa.chatapplication.Groups;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public class Groups_show_Adapter  extends BaseAdapter {
 
 
         TextView forname = (TextView) view.findViewById(R.id.g_v_username);
-        CircularImageView pcircularImageView = (CircularImageView) view.findViewById(R.id.g_profile_view);
+        final CircularImageView pcircularImageView = (CircularImageView) view.findViewById(R.id.g_profile_view);
 
         final  groups_create_info data = dataList.get(position);
 
@@ -85,11 +86,14 @@ public class Groups_show_Adapter  extends BaseAdapter {
 //        System.out.print(""+data.getProfile_image());
         Glide.with(context)
                 .load(data.getG_i_url())
+                .error(R.drawable.grou_ico)
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
                         return false;
+//                        pcircularImageView.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/chatapplication-f99c2.appspot.com/o/grou_ico.png?alt=media&token=b664fb78-2b74-49b5-8297-6bc0e9e3c6c9"));
+
                     }
 
                     @Override
