@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.example.babarmustafa.chatapplication.Chat_Work.ConversationActivity;
 import com.example.babarmustafa.chatapplication.Chat_Work.MesagesAdapter;
 import com.example.babarmustafa.chatapplication.Chat_Work.NotificationMessage;
+import com.example.babarmustafa.chatapplication.GroupProfile.GroupProfile;
 import com.example.babarmustafa.chatapplication.R;
 import com.example.babarmustafa.chatapplication.Signup_Adapter;
 import com.example.babarmustafa.chatapplication.User;
@@ -107,10 +108,9 @@ public class Group_coversation extends Activity {
         get_grou_name = getIntent().getStringExtra("group_name");
         get_g_pic = getIntent().getStringExtra("group_ima_url");
         get_a_name = getIntent().getStringExtra("group_admin_name");
-        Toast.makeText(this, "n>"+get_grou_name, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "a>"+get_a_name, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "i>"+get_g_pic, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "n>" + get_grou_name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "a>" + get_a_name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "i>" + get_g_pic, Toast.LENGTH_SHORT).show();
 
 
         mStoarge = FirebaseStorage.getInstance().getReference();
@@ -126,6 +126,16 @@ public class Group_coversation extends Activity {
                 .into(for_user_image_on_toolbar);
 //        Picasso.with(ConversationActivity.this).load(get_f_pic).into(for_user_image_on_toolbar);
         for_user_name_selected_for_chat.setText(get_grou_name);
+        for_user_name_selected_for_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Group_coversation.this, GroupProfile.class);
+                i.putExtra("groupname", get_grou_name);
+                i.putExtra("groupImage", get_g_pic);
+                i.putExtra("AdminName", get_a_name);
+                startActivity(i);
+            }
+        });
 //.child("GroupData")
 //        .child(get_grou_name)
 //                .child("Conversation")
@@ -135,42 +145,42 @@ public class Group_coversation extends Activity {
                 .child("Conversation")
                 .addChildEventListener(new ChildEventListener() {
 
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // This method is called once with the initial value and again
-                // whenever Data at this location is updated.
-                data = dataSnapshot.getValue(grouop_convo.class);
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        // This method is called once with the initial value and again
+                        // whenever Data at this location is updated.
+                        data = dataSnapshot.getValue(grouop_convo.class);
 //                list.add(data.getUID());
-                // Log.v("DATA", "" + data.getId() + data.getName() + data.getCity());
-                grouop_convo email = new grouop_convo(data.getMsg(),data.getTime(),data.sendr_id);
-                messages.add(email);
-                listadapter.notifyDataSetChanged();
+                        // Log.v("DATA", "" + data.getId() + data.getName() + data.getCity());
+                        grouop_convo email = new grouop_convo(data.getMsg(), data.getTime(), data.sendr_id);
+                        messages.add(email);
+                        listadapter.notifyDataSetChanged();
 //
 
-            }
+                    }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                    }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                    }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                    }
 
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w("TAG", "Failed to read value.", error.toException());
+                    }
+                });
         for_video_sharing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +188,7 @@ public class Group_coversation extends Activity {
                 Intent inte = new Intent();
                 inte.setType("video/*");
                 inte.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(inte,SAVE_REQUEST_CODE);
+                startActivityForResult(inte, SAVE_REQUEST_CODE);
 //                intent.setAction(Intent.ACTION_GET_CONTENT);
 //                startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
             }
@@ -210,7 +220,7 @@ public class Group_coversation extends Activity {
                 Intent intent_upload = new Intent();
                 intent_upload.setType("audio/*");
                 intent_upload.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent_upload,SAVE_REQUEST_CODE);
+                startActivityForResult(intent_upload, SAVE_REQUEST_CODE);
 
 
             }
@@ -249,6 +259,7 @@ public class Group_coversation extends Activity {
 
         });
     }
+
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         // TODO Auto-generated method stub
         if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
@@ -278,8 +289,6 @@ public class Group_coversation extends Activity {
                 }
             });
         }
-
-
 
 
         if (requestCode == SAVE_REQUEST_CODE && resultCode == RESULT_OK && tocheck == true) {
@@ -336,7 +345,6 @@ public class Group_coversation extends Activity {
                         downloadl = taskSnapshot.getDownloadUrl();
 
 
-
                         Toast.makeText(Group_coversation.this, "Upload image succesfully", Toast.LENGTH_SHORT).show();
                         for_message.setText(downloadl.toString());
 
@@ -350,6 +358,7 @@ public class Group_coversation extends Activity {
 
 
     }
+
     private void uploadDocOrFile(String filePath, Uri uri) {
 
         Date date = new Date(System.currentTimeMillis());
@@ -379,7 +388,7 @@ public class Group_coversation extends Activity {
         if (fileLenght <= FIVE_MEGABYTE) {
             Uri file = Uri.fromFile(new File(filePath));
 
-            mStoarge = folderRef.child(uri +"."+ extension);
+            mStoarge = folderRef.child(uri + "." + extension);
             uploadTask = mStoarge.putFile(uri);
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override

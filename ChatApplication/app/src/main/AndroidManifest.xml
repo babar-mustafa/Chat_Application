@@ -61,6 +61,11 @@ background. To receive notifications in foregrounded apps, to receive data paylo
         <activity android:name=".Groups.GroupCreate" />
         <activity android:name=".Groups.Group_coversation" />
         <activity android:name=".User_Profile.postView.post" />
+        <activity android:name=".GroupProfile.GroupProfile">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Chat_Work.Chat_Main_View" />
+        </activity>
     </application>
 
 </manifest>
