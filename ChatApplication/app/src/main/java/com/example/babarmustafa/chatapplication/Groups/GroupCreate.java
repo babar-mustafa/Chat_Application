@@ -65,6 +65,7 @@ public class GroupCreate extends AppCompatActivity {
     public HashMap<String, String> hashObj = new HashMap<>();
     String g_by_default;
     FirebaseAuth mauth;
+    User email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,7 @@ public class GroupCreate extends AppCompatActivity {
                 data = dataSnapshot.getValue(User.class);
                 list.add(data.getUID());
                 // Log.v("DATA", "" + data.getId() + data.getName() + data.getCity());
-                User email = new User(data.getUID(), data.getName(), data.getEmail(),  data.getPassword(),data.getGEnder(), data.getProfile_image());
+                email = new User(data.getUID(), data.getName(), data.getEmail(),  data.getPassword(),data.getGEnder(), data.getProfile_image());
                 messages.add(email);
                 listAdapter.notifyDataSetChanged();
 //
@@ -145,6 +146,12 @@ public class GroupCreate extends AppCompatActivity {
                                         .child(friend_uid_on_clicked)
                                         .child(group_Name.getText().toString())
                                         .setValue(hashObj);
+                                databse
+                                        .child("Group_Members")
+                                        .child(group_Name.getText().toString())
+                                        .child(friend_uid_on_clicked)
+                                        .setValue(email);
+
                                 messages.remove(position);
                                 listAdapter.notifyDataSetChanged();
                             }
