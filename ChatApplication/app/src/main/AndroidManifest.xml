@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/mainicon"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -52,10 +53,19 @@ background. To receive notifications in foregrounded apps, to receive data paylo
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".User_Profile.UserProfile" />
+        <activity android:name=".User_Profile.UserProfile">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Chat_Work.Chat_Main_View" />
+        </activity>
         <activity android:name=".Groups.GroupCreate" />
         <activity android:name=".Groups.Group_coversation" />
-        <activity android:name=".User_Profile.postView.post"></activity>
+        <activity android:name=".User_Profile.postView.post" />
+        <activity android:name=".GroupProfile.GroupProfile">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Chat_Work.Chat_Main_View" />
+        </activity>
     </application>
 
 </manifest>
