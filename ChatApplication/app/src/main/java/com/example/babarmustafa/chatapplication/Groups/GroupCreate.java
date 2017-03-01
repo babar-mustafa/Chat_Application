@@ -146,11 +146,11 @@ public class GroupCreate extends AppCompatActivity {
                                         .child(friend_uid_on_clicked)
                                         .child(group_Name.getText().toString())
                                         .setValue(hashObj);
-                                databse
-                                        .child("Group_Members")
-                                        .child(group_Name.getText().toString())
-                                        .child(friend_uid_on_clicked)
-                                        .setValue(email);
+//                                databse
+//                                        .child("Group_Members")
+//                                        .child(group_Name.getText().toString())
+//                                        .child(friend_uid_on_clicked)
+//                                        .setValue(email);
 
                                 messages.remove(position);
                                 listAdapter.notifyDataSetChanged();
