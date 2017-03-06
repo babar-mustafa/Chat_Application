@@ -196,6 +196,7 @@ public class GroupCreate extends AppCompatActivity {
                                 .child(current_login)
                                 .child(group_Name.getText().toString())
                                 .setValue(hashObj);
+                        finish();
 
                     }
                     else{

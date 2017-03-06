@@ -108,9 +108,7 @@ public class Group_coversation extends Activity {
         get_grou_name = getIntent().getStringExtra("group_name");
         get_g_pic = getIntent().getStringExtra("group_ima_url");
         get_a_name = getIntent().getStringExtra("group_admin_name");
-        Toast.makeText(this, "n>" + get_grou_name, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "a>" + get_a_name, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "i>" + get_g_pic, Toast.LENGTH_SHORT).show();
+
 
 
         mStoarge = FirebaseStorage.getInstance().getReference();
