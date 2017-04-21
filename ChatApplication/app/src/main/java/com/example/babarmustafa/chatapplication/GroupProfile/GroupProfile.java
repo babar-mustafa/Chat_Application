@@ -20,9 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.babarmustafa.chatapplication.Chat_Work.Chat_Main_View;
-import com.example.babarmustafa.chatapplication.Groups.Group_coversation;
-import com.example.babarmustafa.chatapplication.Groups.ItemClickSupport;
-import com.example.babarmustafa.chatapplication.Groups.MyRecyclerViewAdapter;
+
 import com.example.babarmustafa.chatapplication.Groups.groups_create_info;
 import com.example.babarmustafa.chatapplication.R;
 import com.example.babarmustafa.chatapplication.Signup_Adapter;
